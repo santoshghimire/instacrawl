@@ -64,8 +64,8 @@ class InstaSpider(scrapy.Spider):
             print("Crawling without Login ")
             print("*****************************")
             pass
-        self.driver = webdriver.Chrome()
-        self.post_driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome('browsers/chromedriver')
+        self.post_driver = webdriver.Chrome('browsers/chromedriver')
         try:
             self.instagram = InstagramCrawler(self.driver, self.data)
             self.instagram.run()
@@ -75,9 +75,11 @@ class InstaSpider(scrapy.Spider):
             print("*****************************")
             pass
 
-    def spider_closed(self, spider):
-        self.driver.close()
-        self.post_driver.close()
+    def close_spider(self, spider):
+        # self.driver.close()
+        # self.post_driver.close()
+        self.driver.quit()
+        self.post_driver.quit()
         # try:
         #     self.display.stop()
         # except:
